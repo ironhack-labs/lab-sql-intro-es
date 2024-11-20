@@ -1,0 +1,138 @@
+# NYC Open Complaints Data Analysis
+
+This document analyzes the NYC Open Complaints dataset using SQL queries. The analysis focuses on identifying trends in complaint types, their frequencies, and the cities most affected. Each query is accompanied by insights and observations to help frame the results in context.
+
+---
+
+## 1. Previewing the Dataset
+The first step is to preview the dataset to understand its structure and the type of information it contains. This provides a foundation for further analysis.
+
+**SQL Query**:
+```sql
+SELECT
+  *
+FROM
+  "IRONHACK_SQL_LABS"."PUBLIC"."NY_OPEN"
+LIMIT
+  10;
+```
+
+To examine the first 10 rows of the dataset.
+Helps identify key fields such as CITY, COMPLAINT_TYPE, and CREATED_DATE for deeper analysis.
+
+
+
+## 2. Identifying the Top 5 Complaint Types
+This query determines the five most frequent complaint types in the dataset, offering insight into the most common issues reported.
+
+**SQL Query**:
+
+```sql
+SELECT 
+    COMPLAINT_TYPE, 
+    COUNT(*) AS COMPLAINT_COUNT
+FROM 
+    NY_OPEN
+GROUP BY 
+    COMPLAINT_TYPE
+ORDER BY 
+    COMPLAINT_COUNT DESC
+LIMIT 5;
+```
+
+
+
+Noise complaints, especially from residential areas, dominate the dataset.
+Other top complaints may include heating issues, blocked driveways, or other urban concerns, depending on the dataset composition.
+
+
+Urban planners and policymakers may focus on noise control initiatives in residential areas as a priority.
+
+
+## 3. City-Wise Complaint Distribution
+This query explores the distribution of complaints by city to identify areas with the highest volume of reported issues.
+
+**SQL Query**:
+
+```sql
+
+SELECT 
+    CITY, 
+    COUNT(*) AS COMPLAINT_COUNT
+FROM 
+    NY_OPEN
+GROUP BY 
+    CITY;
+
+```
+
+Bronx, Brooklyn, and New York (Manhattan) lead in the number of complaints registered.
+These are densely populated and urbanized areas, making them more prone to issues like noise, sanitation, and housing-related complaints.
+
+
+These cities represent critical areas for targeted interventions and resource allocation.
+
+##  4. Filtering Complaint Types with Significant Frequency
+This query filters out complaint types with less than 10 occurrences, focusing only on those that are statistically significant or impactful.
+
+
+**SQL Query**:
+
+```sql
+
+SELECT 
+    COMPLAINT_TYPE, 
+    COUNT(*) AS COMPLAINT_COUNT
+FROM 
+    NY_OPEN
+GROUP BY 
+    COMPLAINT_TYPE
+HAVING 
+    COUNT(*) > 10;
+```
+
+
+Most complaints with significant frequencies are residential-related issues.
+Common complaint categories may include noise, sanitation, or heating problems.
+
+Policymakers should prioritize high-frequency complaints to maximize impact with limited resources.
+
+## 5. Correlating City and Complaint Types
+This query identifies the relationship between cities and the specific types of complaints reported in each area.
+
+
+**SQL Query**:
+
+```sql
+
+SELECT 
+    CITY, 
+    COMPLAINT_TYPE, 
+    COUNT(*) AS COMPLAINT_COUNT
+FROM 
+    NY_OPEN
+GROUP BY 
+    CITY, 
+    COMPLAINT_TYPE
+HAVING 
+    COUNT(*) > 10;
+```
+
+Bronx has the highest number of noise-related complaints, especially from residential areas.
+Brooklyn follows closely, exhibiting a similar trend of residential noise issues.
+
+Strategies like noise abatement programs or stricter noise regulations could benefit these areas.
+Urban planners should investigate the root causes of these complaints for long-term mitigation.
+
+## 6. Summary of Findings
+
+Noise-related complaints dominate the dataset, with residential issues being the most frequently reported.
+Bronx, Brooklyn, and New York (Manhattan) are the cities with the highest complaint volumes, likely due to their high population density.
+High-frequency complaints often involve residential noise and sanitation issues, indicating the need for localized urban planning efforts.
+The correlation between complaint types and cities highlights urban hotspots for targeted interventions.
+
+## 7. Recommendations
+
+Noise Mitigation: Implement stricter noise control regulations in areas like the Bronx and Brooklyn.
+Resource Allocation: Focus resources on cities and complaint categories with the highest frequencies.
+Further Analysis: Explore additional variables like time of day or demographics to understand the underlying causes of complaints.
