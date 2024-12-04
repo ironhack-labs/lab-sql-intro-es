@@ -1,0 +1,60 @@
+First SQL Lab Requests
+
+After creating the Database first_sql_lab and using table csv_limpio2:
+CREATE DATABASE first_sql_lab
+
+Request 1: 
+SELECT complaint_type, COUNT(*) AS total_complaints
+FROM csv_limpio2
+GROUP BY complaint_type
+ORDER BY total_complaints DESC
+LIMIT 5;
+
+Return: 
+
+Noise - Residential	209
+Illegal Parking		183
+Noise - Street/Sidewalk	140
+HEAT/HOT WATER	67
+Noise - Vehicle		49
+# El top 5 de quejas más comunes son principalmente las relacionadas con el ruido (residencial, calle y vehículos). 
+
+Request 2: 
+SELECT borough, COUNT(*) AS total_complaints
+FROM csv_limpio2
+GROUP BY borough
+ORDER BY total_complaints DESC;
+
+Return:
+BROOKLYN	310
+MANHATTAN	261
+QUEENS	229
+BRONX		176
+STATEN ISLAND	19
+# En este top vemos que el barrio de Brooklyn lidera los registros de quejas, seguido de Manhattan y Queens. También comprobamos que Staten Island tiene una incidencia muy baja en comparación a las oznas más urbanizadas y pobladas.
+
+Request 3:
+SELECT complaint_type, COUNT(*) AS total_complaints
+FROM csv_limpio2
+GROUP BY complaint_type
+HAVING COUNT(*) > 1000
+ORDER BY total_complaints DESC;
+
+Return:
+Blank
+# No devuelve nada y es probable por el sample tan bajo que tenemos. 
+
+Request 4:
+SELECT borough, COUNT(*) AS total_complaints
+FROM csv_limpio2
+WHERE complaint_type = 'Noise - Residential'
+GROUP BY borough
+ORDER BY total_complaints DESC;
+
+Return: 
+BROOKLYN	58
+MANHATTAN	57
+BRONX		54
+QUEENS	34
+STATEN ISLAND	 6
+#Hemos escogido las quejas de contaminación acústica residencial para comprobar en qué barrios encontramos más cantidad de quejas, y nos llevamos una sorpresa al ver que las centrales como Brooklyn, Manhattan y Bronx están muy parejas y por lo tanto son un problema significativo en estas áreas densas de población.
